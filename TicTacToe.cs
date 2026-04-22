@@ -4,7 +4,7 @@ public class TicTacToe
 {
 	public static readonly string X = "X";
 	public static readonly string O = "O";
-	public static readonly int LOOK_AHEAD = 3;
+	public static readonly int LOOK_AHEAD = 5;
 	private string[] board;
 	private bool isPlayerOneTurn;
 
@@ -160,7 +160,7 @@ public class TicTacToe
 			int value = MiniMax(lookAhead - 1, !playerOneTurn, maximizingPlayer, new int[1]);
 			board[m] = m.ToString();
 
-			if (maximizing ? value > bestEval : value < bestEval)
+			if (maximizing ? (value > bestEval) : (value < bestEval))
 			{
 				bestEval = value;
 				bestMove[0] = m;
@@ -227,14 +227,15 @@ public class TicTacToe
 
 	private int CheckAllOneInALine(string m)
 	{
-		return CheckOneInALine(board, m, 0, 1, 2) +
-					 CheckOneInALine(board, m, 3, 4, 5) +
-					 CheckOneInALine(board, m, 6, 7, 8) +
-					 CheckOneInALine(board, m, 0, 3, 6) +
-					 CheckOneInALine(board, m, 1, 4, 7) +
-					 CheckOneInALine(board, m, 2, 5, 8) +
-					 CheckOneInALine(board, m, 0, 4, 8) +
-					 CheckOneInALine(board, m, 2, 4, 6);
+		return
+			CheckOneInALine(board, m, 0, 1, 2) +
+			CheckOneInALine(board, m, 3, 4, 5) +
+			CheckOneInALine(board, m, 6, 7, 8) +
+			CheckOneInALine(board, m, 0, 3, 6) +
+			CheckOneInALine(board, m, 1, 4, 7) +
+			CheckOneInALine(board, m, 2, 5, 8) +
+			CheckOneInALine(board, m, 0, 4, 8) +
+			CheckOneInALine(board, m, 2, 4, 6);
 	}
 
 	public int CheckOneInALine(String[] board, String mark, int a, int b, int c)
